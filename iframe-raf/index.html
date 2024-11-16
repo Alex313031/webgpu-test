@@ -1,0 +1,57 @@
+<!doctype html>
+
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1, user-scalable=no'>
+    <meta name='mobile-web-app-capable' content='yes'>
+    <meta name='apple-mobile-web-app-capable' content='yes'>
+
+    <title>Particle System - WebGPU</title>
+    <style>
+        iframe {
+            display: block;
+            width: 300px;
+            height: 130px;
+            border: 2px solid green;
+        }
+    </style>
+  </head>
+  <body>
+    <div id='iframes'></div>
+
+    <button id='addRemoteIframe'>Add remote iframe</button>
+    <button id='addIframe'>Add same-origin iframe</button>
+    <button id='removeIframe'>Remove last iframe</button>
+
+    <script>
+        const iframeContainer = document.getElementById('iframes');
+
+        function addIframe(remote) {
+          const iframe = document.createElement('iframe');
+          iframe.src = remote ? 'https://toji.dev/test/iframe.html' : 'iframe.html';
+          iframeContainer.appendChild(iframe);
+        }
+
+        addIframe(true);
+        addIframe(true);
+        addIframe(false);
+        addIframe(false);
+
+        // Main page only
+        const addRemoteBtn = document.getElementById('addRemoteIframe');
+        const addBtn = document.getElementById('addIframe');
+        const removeBtn = document.getElementById('removeIframe');
+
+        if (addBtn && removeBtn) {
+            
+            addRemoteBtn.addEventListener('click', () => { addIframe(true); });
+            addBtn.addEventListener('click', () => { addIframe(false); });
+
+            removeBtn.addEventListener('click', () => {
+                iframeContainer.removeChild(iframeContainer.lastChild);
+            });
+        }
+    </script>
+  </body>
+</html>
